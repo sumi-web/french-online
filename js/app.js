@@ -88,8 +88,6 @@
   }
 })(jQuery);
 
-
-
 // making sticky navbar
 const navbar = document.querySelector(".navbar-section");
 window.addEventListener("scroll", function () {
