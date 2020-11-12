@@ -1,92 +1,274 @@
-(function ($) {
-  "use strict";
-  /*==================================================================
-  [ Validate after type ]*/
-  $('.validate-input .input100').each(function () {
-    $(this).on('blur', function () {
-      if (validate(this) == false) {
-        showValidate(this);
-      } else {
-        $(this).parent().addClass('true-validate');
-      }
-    })
-  })
+function validateForm(formID) {
+  //[ Validate ]
+  var input = $('#' + formID + ' .inp-validate');
 
-  /*==================================================================
-  [ Validate ]*/
-  var input = $('.validate-input .input100');
+  //Validate each input field
+  var check = true;
 
-  $('.validate-form').on('submit', function () {
-    var check = true;
-
-    for (var i = 0; i < input.length; i++) {
-      if (validate(input[i]) == false) {
-        showValidate(input[i]);
-        check = false;
-      }
+  for (var i = 0; i < input.length; i++) {
+    if (validate(input[i]) === false) {
+      showValidate(input[i]);
+      check = false;
     }
+  }
+  //If form is validated then post data to API
+  if (check) {
+    sendOTP();
+  }
+}
 
-    return check;
-  });
-
-  $('.validate-form .input100').each(function () {
-    $(this).focus(function () {
-      hideValidate(this);
-      $(this).parent().removeClass('true-validate');
-    });
-  });
-
-  function validate(input) {
-    if ($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+function validate(input) {
+  if ($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+    //Match regex with control value
+    var regex = new RegExp(/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/),
+      email = $(input).val();
+    if (regex.test(email)) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    if ($(input).attr('name') === 'phone') {
+      //Validate Phone number also
       //Match regex with control value
-      var regex = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
-
-        email = $(input).val();
-      if (regex.test(email)) {
+      var regex = new RegExp(/^[4-9][0-9]{9}$/),
+        phone = $(input).val();
+      if (regex.test(phone)) {
         return true;
       } else {
         return false;
       }
     } else {
-      if ($(input).attr('name') === 'phone') {
-        //Validate Phone number also
-        //Match regex with control value
-        var regex = new RegExp(/^[4-9][0-9]{9}$/),
-          phone = $(input).val();
-        if (regex.test(phone)) {
-          return true;
-        } else {
-          return false;
-        }
+      if ($(input).val().trim() === '') {
+        return false;
       } else {
-        if ($(input).val().trim() === '') {
-          return false;
-        } else {
-          return true;
-        }
+        return true;
       }
     }
   }
+}
 
-  function showValidate(input) {
-    var thisAlert = $(input).parent();
+function showValidate(input) {
+  var thisAlert = $(input).parent();
+  $(thisAlert).addClass('alert-validate');
+  $(thisAlert).append('<span class="btn-hide-validate">&#xf135;</span>');
+  $('.btn-hide-validate').each(function () {
+    $(this).on('click', function () {
+      hideValidate(this);
+    });
+  });
+}
 
-    $(thisAlert).addClass('alert-validate');
+function hideValidate(input) {
+  var thisAlert = $(input).parent();
+  $(thisAlert).removeClass('alert-validate');
+  $(thisAlert).find('.btn-hide-validate').remove();
+}
 
-    $(thisAlert).append('<span class="btn-hide-validate">&#xf135;</span>')
-    $('.btn-hide-validate').each(function () {
-      $(this).on('click', function () {
-        hideValidate(this);
-      });
+function sendOTP() {
+  //get the input values
+  var nameVar = $('#txtName').val(),
+    emailVar = $('#txtEmail').val(),
+    phoneVar = $('#txtPhone').val(),
+    queryVar = $('#txtQuery').val();
+  if (nameVar != '' && emailVar != '' && phoneVar != '' && queryVar != '') {
+    //SHow loader 
+    $('#loader').show();
+    //Generate ajax request to send OTP
+    $.ajax({
+      type: "GET",
+      url: "/api/data/otp2",
+      contentType: "application/json; charset=utf-8",
+      data: {
+        number: phoneVar,
+        email: emailVar,
+        pageURL: window.location.href,
+        token: $('#token').val()
+      },
+      dataType: "json",
+      success: function (res) {
+        if (res.status === true) {
+          $('#otp').val(res.otp);
+          //Show OTP Panel
+          $('#otpPanel').show();
+          //Hide Submit button panel
+          $('#submitBtnPanel').hide();
+          //Disable text box
+          $('#txtPhone').attr('disabled', 'disabled');
+          $('#txtEmail').attr('disabled', 'disabled');
+        } else {
+          notification(res.message, 'error');
+        }
+        //Hide loader 
+        $('#loader').hide();
+      },
+      failure: function (response) {
+        notification('Error!! Please contact support for more information.', 'error');
+        //Hide loader 
+        $('#loader').hide();
+      },
+      error: function (jqXHR) {
+        notification('Error!! Please contact support for more information.', 'error');
+        //Hide loader 
+        $('#loader').hide();
+      }
     });
   }
+}
 
-  function hideValidate(input) {
-    var thisAlert = $(input).parent();
-    $(thisAlert).removeClass('alert-validate');
-    $(thisAlert).find('.btn-hide-validate').remove();
+function registerStudent(queryForStr, countryStr) {
+  //Verify with OTP
+  if ($('#otp').val() === $('#txtOTP').val().trim()) {
+
+    var name = $('#txtName').val(),
+      email = $('#txtEmail').val(),
+      phone = $('#txtPhone').val(),
+      query = $('#txtQuery').val();
+    var obj = {
+      studentName: name,
+      studentContact: phone,
+      emailAddress: email,
+      message: query,
+      queryFor: queryForStr,
+      country: countryStr,
+      pageURL: window.location.href,
+    };
+    //SHow loader 
+    $('#loader').show();
+    $.ajax({
+      url: "/api/register/student2",
+      type: "POST",
+      dataType: 'json',
+      data: obj,
+      success: function (res) {
+        if (res.status === true) {
+          //Clear form values
+          $('#txtName').val('');
+          $('#txtPhone').val('');
+          $('#txtEmail').val('');
+          $('#txtQuery').val('');
+          if (queryForStr === 'IELTS-Academic' || queryForStr === 'IELTS-General') {
+            //Redirect to thanks page of IELTS
+            window.location.href = "/IELTS/Thanks";
+          } else {
+            //Redirect to thanks page of study visa
+            window.location.href = "/StudyVisa/Thanks";
+          }
+        } else {
+          notification(res.message, 'error');
+        }
+        //Hide loader 
+        $('#loader').hide();
+      },
+      failure: function (response) {
+        notification('Error!! Please contact support for more information.', 'error');
+        //Hide loader 
+        $('#loader').hide();
+      },
+      error: function (jqXHR) {
+        notification('Error!! Please contact support for more information.', 'error');
+        //Hide loader 
+        $('#loader').hide();
+      }
+    });
+  } else {
+    notification('Wrong OTP!!', 'error');
   }
-})(jQuery);
+}
+
+function notification(text, type) {
+  alert(text);
+}
+
+// (function ($) {
+//   "use strict";
+//   /*==================================================================
+//   [ Validate after type ]*/
+//   $('.validate-input .input100').each(function () {
+//     $(this).on('blur', function () {
+//       if (validate(this) == false) {
+//         showValidate(this);
+//       } else {
+//         $(this).parent().addClass('true-validate');
+//       }
+//     })
+//   })
+
+//   /*==================================================================
+//   [ Validate ]*/
+//   var input = $('.validate-input .input100');
+
+//   $('.validate-form').on('submit', function () {
+//     var check = true;
+
+//     for (var i = 0; i < input.length; i++) {
+//       if (validate(input[i]) == false) {
+//         showValidate(input[i]);
+//         check = false;
+//       }
+//     }
+
+//     return check;
+//   });
+
+//   $('.validate-form .input100').each(function () {
+//     $(this).focus(function () {
+//       hideValidate(this);
+//       $(this).parent().removeClass('true-validate');
+//     });
+//   });
+
+//   function validate(input) {
+//     if ($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+//       //Match regex with control value
+//       var regex = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+
+//         email = $(input).val();
+//       if (regex.test(email)) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     } else {
+//       if ($(input).attr('name') === 'phone') {
+//         //Validate Phone number also
+//         //Match regex with control value
+//         var regex = new RegExp(/^[4-9][0-9]{9}$/),
+//           phone = $(input).val();
+//         if (regex.test(phone)) {
+//           return true;
+//         } else {
+//           return false;
+//         }
+//       } else {
+//         if ($(input).val().trim() === '') {
+//           return false;
+//         } else {
+//           return true;
+//         }
+//       }
+//     }
+//   }
+
+//   function showValidate(input) {
+//     var thisAlert = $(input).parent();
+
+//     $(thisAlert).addClass('alert-validate');
+
+//     $(thisAlert).append('<span class="btn-hide-validate">&#xf135;</span>')
+//     $('.btn-hide-validate').each(function () {
+//       $(this).on('click', function () {
+//         hideValidate(this);
+//       });
+//     });
+//   }
+
+//   function hideValidate(input) {
+//     var thisAlert = $(input).parent();
+//     $(thisAlert).removeClass('alert-validate');
+//     $(thisAlert).find('.btn-hide-validate').remove();
+//   }
+// })(jQuery);
 
 // making sticky navbar
 const navbar = document.querySelector(".navbar-section");

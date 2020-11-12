@@ -58,6 +58,18 @@ a {
   text-decoration: none !important;
 }
 
+hr {
+  border-style: dotted none none;
+  border-color: #3b5249;
+  border-width: 8px;
+  max-width: 6rem;
+  margin: .5rem auto;
+  /* width: 100%;
+  max-width: 180px; */
+  margin: 10px auto 50px auto;
+  /* height: 3px; */
+}
+
 /* *********navbar head section********* */
 .navbar-section {
   position: relative;
@@ -282,9 +294,6 @@ iframe {
 /*========================
 [ Form ]*/
 
-.contact100-form {
-  width: 100%;
-}
 
 .contact100-form-title {
   display: block;
@@ -311,7 +320,6 @@ iframe {
   width: 100%;
   background: transparent;
   font-size: 1rem;
-  color: #4b2354;
   line-height: 1.2;
 }
 
@@ -356,6 +364,7 @@ textarea.input100 {
   -webkit-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.15);
   -o-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.15);
   -ms-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
 }
 
 /*------------------------------------------------------------------
@@ -384,8 +393,6 @@ textarea.input100 {
   height: 42px;
   background-color: #556052;
   border-radius: 20px;
-  font-size: 1.2rem;
-  color: #fff;
   padding-top: 5px;
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -399,6 +406,28 @@ textarea.input100 {
   background-color: #382933;
   transition: all 0.4s;
   box-shadow: 0 10px 30px 0px rgb(72, 159, 140);
+}
+
+.contact100-form-btn a {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.contact100-form-btn span {
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0;
+}
+
+#otpPanel .wrap-input100 {
+  width: 100%;
+  max-width: 60%;
+}
+
+#otpPanel h6 {
+  margin-top: -15px;
+  margin-bottom: 10px;
+  color: #000
 }
 
 /*------------------------------------------------------------------
@@ -439,7 +468,7 @@ textarea.input100 {
 }
 
 .btn-hide-validate {
-  content: "/f05c";
+  content: "\f057";
   font-family: fontAwesome;
   color: #fa4251;
   cursor: pointer;
@@ -510,7 +539,6 @@ textarea.input100 {
   padding: 2rem 1rem;
   border-radius: 15px;
   height: 100%;
-  /* effcef */
   box-shadow: 0px 2px 10px 1px rgb(93, 211, 158, 0.2);
   position: relative;
   border: 2px dashed rgb(93, 211, 158, 0.3);
@@ -640,10 +668,11 @@ textarea.input100 {
 .level-french {
   padding: 3rem 0;
   background-color: #effcef;
+  position: relative;
 }
 
-.level-french h1 {
-  margin-bottom: 50px;
+.level-french-box {
+  position: relative;
 }
 
 .level-french-box ul li {
@@ -675,6 +704,24 @@ textarea.input100 {
   display: inline-block;
   font-weight: 500;
   color: #3d3636;
+}
+
+.level-french-box img {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  padding: 0 2rem 1rem 2rem;
+}
+
+.level-french-box img::after {
+  content: "";
+  height: 500px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(102, 202, 157);
+  z-index: 40;
 }
 
 /* *********batch timing section*********** */
@@ -828,6 +875,36 @@ textarea.input100 {
   color: rgb(93, 211, 158);
 }
 
+#loader {
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  filter: Alpha(opacity=80);
+  opacity: .8;
+  -moz-opacity: .8;
+}
+
+#modalprogress {
+  position: fixed;
+  top: 30%;
+  left: 45%;
+  margin: -33px 0 0 -88px;
+  color: #fff;
+  width: 0;
+  height: 24px;
+}
+
+#theprogress {
+  text-align: center;
+  filter: Alpha(opacity=100);
+  opacity: 1;
+  -moz-opacity: 1;
+}
+
 /* **********responsivene css************** */
 
 @media(max-width:769px) {
@@ -892,7 +969,7 @@ textarea.input100 {
 }
 
 
-@media (max-width:1600px) and (min-width:1400px) {
+@media (max-width:5000px) and (min-width:1400px) {
   .main-form {
     padding: .8rem 8rem;
   }

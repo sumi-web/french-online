@@ -13,6 +13,8 @@
 </head>
 
 <body>
+  <input id="otp" type="hidden">
+  <input id="token" value="www.kanankarnal.com" type="hidden">
   <!-- ----Navbar head header------- -->
   <section id="topheader" class="navbar-section">
     <div class="container">
@@ -38,18 +40,18 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link scroll-link" href="#about">
-                About
+              <a class="nav-link scroll-link" href="#offer">
+                Offer
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link scroll-link" href="#provide">
-                Provide
+              <a class="nav-link scroll-link" href="#schedule">
+                Schedule
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link scroll-link" href="#faq">
-                Faqs
+              <a class="nav-link scroll-link" href="#pricing">
+                Pricing
               </a>
             </li>
             <li class="nav-item">
@@ -80,34 +82,53 @@
               <div class="col-md-6">
                 <div class="main-form">
                   <div class="wrap-contact100">
-                    <form class="contact100-form validate-form">
+                    <form id="registrationForm" class="contact100-form validate-form">
                       <span class="contact100-form-title">
                         Get In Touch
                       </span>
 
                       <div class="wrap-input100 validate-input" data-validate="Please enter your name">
-                        <input class="input100" type="text" name="name" placeholder="Full Name">
+                        <input id="txtName" class="input100 inp-validate" type="text" maxlength="40" name="name"
+                          placeholder="Full Name">
                         <span class="focus-input100"></span>
                       </div>
 
                       <div class="wrap-input100 validate-input" data-validate="Please enter email: e@a.x">
-                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <input id="txtEmail" class="input100 inp-validate" type="email" maxlength="50" name="email"
+                          placeholder="Email">
                         <span class="focus-input100"></span>
                       </div>
 
                       <div class="wrap-input100 validate-input" data-validate="Please enter correct number">
-                        <input class="input100" type="text" name="phone" placeholder="Phone" maxlength="10">
+                        <input id="txtPhone" class="input100 inp-validate" type="text" name="phone"
+                          placeholder="Mobile Number" maxlength="10">
                         <span class=" focus-input100"></span>
                       </div>
 
                       <div class="wrap-input100 validate-input" data-validate="Please enter your message">
-                        <textarea class="input100" name="message" placeholder="Your Message"></textarea>
+                        <textarea id="txtQuery" class="input100 inp-validate" maxlength="500" name="message"
+                          placeholder="Your Message"></textarea>
                         <span class="focus-input100"></span>
                       </div>
 
-                      <div class="container-contact100-form-btn">
-                        <button class="contact100-form-btn">
-                          SUBMIT
+                      <div id="submitBtnPanel" class="container-contact100-form-btn">
+                        <button class="contact100-form-btn" onclick="validateForm('registrationForm');" type="button">
+                          <a href="javascript:">SUBMIT</a>
+                        </button>
+                      </div>
+
+                      <div id="otpPanel" class="container-contact100-form-btn p-0" style="display: none;">
+                        <div class="wrap-input100 validate-input" data-validate="OTP not Valid">
+                          <input id="txtOTP" class="input100 inp-validate" type="number" maxlength="6" name="txtOTP"
+                            placeholder="OTP">
+                          <span class="focus-input100"></span>
+                        </div>
+                        <h6>Please wait for 1-2 Minutes for OTP.</h6>
+                        <button id="submitOTP" onclick="registerStudent('IELTS-Academic', '')"
+                          class="contact100-form-btn" type="button">
+                          <span>
+                            SUBMIT
+                          </span>
                         </button>
                       </div>
                     </form>
@@ -123,11 +144,14 @@
     </div>
   </section>
 
+
+
   <!-- -----------service section------------- -->
   <section id="service" class="service-section">
     <div class="container">
       <p>Learning French is a smart choice as more than 300 million people speak French on 5 continents.</p>
-      <h1 class="mb-5">Our Services</h1>
+      <h1>Our Services</h1>
+      <hr>
       <div class="row">
         <div class="col-md-3 col-sm-6 mb-4">
           <div class="service-box">
@@ -181,7 +205,8 @@
   <section class="why-learn-french">
     <div class="container">
       <p>The second most widely used language!</p>
-      <h1 class="mb-5">Why to learn French?</h1>
+      <h1>Why to learn French?</h1>
+      <hr>
       <div class="row">
         <div class="col-md-6">
           <div class="why-learn-box">
@@ -239,9 +264,10 @@
     </div>
   </section>
   <!-- ---------what french lectures offer------------- -->
-  <section class="offer-section">
+  <section id="offer" class="offer-section">
     <div class="container">
-      <h1 class="mb-5">What do French Offer?</h1>
+      <h1>What do French Offer?</h1>
+      <hr>
       <div class="row mb-4">
         <div class="col-md-4 col-sm-4 mb-4">
           <div class="offer-box">
@@ -294,9 +320,10 @@
   <section class="level-french">
     <div class="container">
       <h1>What are the levels in French?</h1>
+      <hr>
       <div class="row">
         <div class="col-md-6">
-          <div class="level-french-box">
+          <div class="level-french-box mb-3">
             <ul>
               <li>
                 <span><strong>A1:</strong> </span>
@@ -325,14 +352,19 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <div class="level-french-box mb-3">
+            <img src="img/French-Levels-from-A1-to-C2-1024x1024.jpg" alt="">
+          </div>
+        </div>
       </div>
     </div>
   </section>
   <!-- -----------Batch timings section-------------- -->
-  <section class="batch-timing-section">
+  <section id="schedule" class="batch-timing-section">
     <div class="container-fluid">
-      <h1 class="mb-5">French Live Classes Schedule</h1>
+      <h1>French Live Classes Schedule</h1>
+      <hr>
       <div class="batch-container">
         <div class="row mb-3">
           <div class="col-md-4"></div>
@@ -403,9 +435,10 @@
     </div>
   </section>
   <!-- ------------pricing plan for french ------------ -->
-  <section class="pricing-section">
+  <section id="pricing" class="pricing-section">
     <div class="container">
-      <h1 class="mb-5">Our Coaching Price</h1>
+      <h1>Our Coaching Price</h1>
+      <hr>
       <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -444,7 +477,8 @@
   <!-- ---------contact section--------------- -->
   <section id="contact" class="contact-section">
     <div class="container">
-      <h1 class="mb-5">Contact Us</h1>
+      <h1>Contact Us</h1>
+      <hr>
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-3">
@@ -472,12 +506,29 @@
     </div>
   </section>
 
+  <div id="loader" style="display:none;">
+    <div id="modalprogress">
+      <div id="theprogress">
+        <img alt="indicator" src="img/spinner.gif">
+      </div>
+    </div>
+  </div>
+
   <!-- jQuery and JS bundle w/ Popper.js -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+  </script>
+  <script>
+    $(document).ready(function () {
+      //Add on focus of input field hide validation msg
+      $('#registrationForm .inp-validate').each(function () {
+        $(this).focus(function () {
+          hideValidate(this);
+        });
+      });
+    });
   </script>
   <script src="js/app.js"></script>
 </body>
