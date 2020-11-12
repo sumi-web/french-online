@@ -66,7 +66,7 @@ hr {
   margin: .5rem auto;
   /* width: 100%;
   max-width: 180px; */
-  margin: 10px auto 50px auto;
+  margin: 12px auto 50px auto;
   /* height: 3px; */
 }
 
@@ -546,7 +546,7 @@ textarea.input100 {
 }
 
 .service-box:hover {
-  margin-top: -15px;
+  margin-top: -20px;
   border-color: rgb(72, 159, 140);
   transition: all 0.4s ease;
 }
@@ -572,7 +572,7 @@ textarea.input100 {
   letter-spacing: 1px;
 }
 
-/* ************why to learn french online********* */
+/* ***********why to learn french online section********* */
 .why-learn-french {
   padding: 3rem 0;
   background-color: #effcef;
@@ -585,8 +585,8 @@ textarea.input100 {
 }
 
 .why-learn-box {
-  padding: 1rem;
-  margin: 5px;
+  padding: 0 1rem 1rem 1rem;
+  /* margin: 5px; */
 }
 
 .why-learn-box ul li {
@@ -610,7 +610,7 @@ textarea.input100 {
   color: #333;
 }
 
-/* **********what french lectures offer************ */
+/* **********what do french lectures offer section************ */
 .offer-section {
   padding: 3rem 0;
 }
@@ -618,7 +618,7 @@ textarea.input100 {
 .offer-box {
   margin: 0 auto;
   padding: 1.5rem 2rem;
-  width: 180px;
+  width: 200px;
   height: 90px;
   background-color: #effcef;
   border-radius: 10px;
@@ -921,6 +921,14 @@ textarea.input100 {
   .french-aspirants span {
     font-size: 1.8rem;
   }
+
+  .offer-box {
+    width: 160px;
+  }
+
+  .batch-content h3 {
+    font-size: 1.7rem;
+  }
 }
 
 @media(max-width:378px) {
@@ -931,6 +939,14 @@ textarea.input100 {
 
   .service-box:hover {
     margin: 0;
+  }
+
+  .offer-box {
+    width: 150px;
+  }
+
+  .offer-box h5 {
+    font-size: 1.2rem;
   }
 
   .french-aspirants h4 {

@@ -72,7 +72,7 @@ function sendOTP() {
     phoneVar = $('#txtPhone').val(),
     queryVar = $('#txtQuery').val();
   if (nameVar != '' && emailVar != '' && phoneVar != '' && queryVar != '') {
-    //SHow loader 
+
     $('#loader').show();
     //Generate ajax request to send OTP
     $.ajax({
@@ -99,17 +99,17 @@ function sendOTP() {
         } else {
           notification(res.message, 'error');
         }
-        //Hide loader 
+
         $('#loader').hide();
       },
       failure: function (response) {
         notification('Error!! Please contact support for more information.', 'error');
-        //Hide loader 
+
         $('#loader').hide();
       },
       error: function (jqXHR) {
         notification('Error!! Please contact support for more information.', 'error');
-        //Hide loader 
+
         $('#loader').hide();
       }
     });
@@ -133,7 +133,7 @@ function registerStudent(queryForStr, countryStr) {
       country: countryStr,
       pageURL: window.location.href,
     };
-    //SHow loader 
+
     $('#loader').show();
     $.ajax({
       url: "/api/register/student2",
@@ -157,17 +157,17 @@ function registerStudent(queryForStr, countryStr) {
         } else {
           notification(res.message, 'error');
         }
-        //Hide loader 
+
         $('#loader').hide();
       },
       failure: function (response) {
         notification('Error!! Please contact support for more information.', 'error');
-        //Hide loader 
+
         $('#loader').hide();
       },
       error: function (jqXHR) {
         notification('Error!! Please contact support for more information.', 'error');
-        //Hide loader 
+
         $('#loader').hide();
       }
     });
@@ -179,96 +179,6 @@ function registerStudent(queryForStr, countryStr) {
 function notification(text, type) {
   alert(text);
 }
-
-// (function ($) {
-//   "use strict";
-//   /*==================================================================
-//   [ Validate after type ]*/
-//   $('.validate-input .input100').each(function () {
-//     $(this).on('blur', function () {
-//       if (validate(this) == false) {
-//         showValidate(this);
-//       } else {
-//         $(this).parent().addClass('true-validate');
-//       }
-//     })
-//   })
-
-//   /*==================================================================
-//   [ Validate ]*/
-//   var input = $('.validate-input .input100');
-
-//   $('.validate-form').on('submit', function () {
-//     var check = true;
-
-//     for (var i = 0; i < input.length; i++) {
-//       if (validate(input[i]) == false) {
-//         showValidate(input[i]);
-//         check = false;
-//       }
-//     }
-
-//     return check;
-//   });
-
-//   $('.validate-form .input100').each(function () {
-//     $(this).focus(function () {
-//       hideValidate(this);
-//       $(this).parent().removeClass('true-validate');
-//     });
-//   });
-
-//   function validate(input) {
-//     if ($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
-//       //Match regex with control value
-//       var regex = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
-
-//         email = $(input).val();
-//       if (regex.test(email)) {
-//         return true;
-//       } else {
-//         return false;
-//       }
-//     } else {
-//       if ($(input).attr('name') === 'phone') {
-//         //Validate Phone number also
-//         //Match regex with control value
-//         var regex = new RegExp(/^[4-9][0-9]{9}$/),
-//           phone = $(input).val();
-//         if (regex.test(phone)) {
-//           return true;
-//         } else {
-//           return false;
-//         }
-//       } else {
-//         if ($(input).val().trim() === '') {
-//           return false;
-//         } else {
-//           return true;
-//         }
-//       }
-//     }
-//   }
-
-//   function showValidate(input) {
-//     var thisAlert = $(input).parent();
-
-//     $(thisAlert).addClass('alert-validate');
-
-//     $(thisAlert).append('<span class="btn-hide-validate">&#xf135;</span>')
-//     $('.btn-hide-validate').each(function () {
-//       $(this).on('click', function () {
-//         hideValidate(this);
-//       });
-//     });
-//   }
-
-//   function hideValidate(input) {
-//     var thisAlert = $(input).parent();
-//     $(thisAlert).removeClass('alert-validate');
-//     $(thisAlert).find('.btn-hide-validate').remove();
-//   }
-// })(jQuery);
 
 // making sticky navbar
 const navbar = document.querySelector(".navbar-section");
